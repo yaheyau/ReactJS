@@ -1,13 +1,9 @@
-import Header from './components/Header';
-import Card from './components/Card';
+import Home from './pages/Home/index';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Header></Header>
-      <Card></Card>
-    </div>
+    <Home></Home>
   );
 }
 
