@@ -1,4 +1,4 @@
-import "./StyledHeader.css";
+import "./index.css";
 
 const Header = () => (
   <div className="header">

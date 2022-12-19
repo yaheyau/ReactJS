@@ -3,7 +3,7 @@ import Card from '../../components/ui/Card';
 
 function Home() {
   return (
-    <div className='App'>
+    <div className='Home'>
       <Header></Header>
       <Card></Card>
     </div>

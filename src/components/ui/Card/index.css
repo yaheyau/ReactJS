@@ -1,3 +1,9 @@
+hr {
+  border: none;
+  background-color: black;
+  height: 1px;
+}
+
 .card {
   width: 150px;
   margin-left: 30px;
