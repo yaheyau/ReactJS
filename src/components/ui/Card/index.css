@@ -12,9 +12,18 @@ hr {
 }
 
 .card-title {
-  font-size: 14px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.card-checkbox {
+  float: right;
 }
 
 .card-text {
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.checkbox-active {
+  color: red;
 }
