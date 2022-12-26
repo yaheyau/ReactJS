@@ -5,25 +5,37 @@ hr {
 }
 
 .card {
-  width: 150px;
+  width: 250px;
   margin-left: 30px;
   padding: 15px;
   background-color: rgb(128, 128, 128, .2);
 }
 
 .card-title {
-  display: inline-block;
+  width: 150px;
   font-size: 16px;
 }
 
 .card-checkbox {
+  margin: 0;
+  float: right;
+}
+
+.card-button {
+  margin-left: 10px;
   float: right;
 }
 
 .card-text {
+  box-sizing: border-box;
+  width: 100%;
   font-size: 14px;
 }
 
 .checkbox-active {
   color: red;
+}
+
+.hide {
+  display: none;
 }
