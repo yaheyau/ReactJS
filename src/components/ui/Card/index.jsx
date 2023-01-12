@@ -1,48 +1,56 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { FaPencilAlt, FaSave, FaWindowClose } from "react-icons/fa";
 
 import Checkbox from "../Checkbox";
 import Button from "../Button";
+import Input from "../Input";
 import "./index.css";
 
-const Card = () => {
-  const [checked, setChecked] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-  
-  const inputTitle = useRef('');
-  const inputText = useRef('');
+const Card = (props) => {
+  const [cardData, setCardData] = useState({
+    title: props.title,
+    text: props.text
+  });
 
-  const editModeHandler = () => {
-    setEditMode(true);
-    setChecked(false);
-  };
+  const handleInput = (e) => setCardData((previous) => ({...previous, [e.target.name]: e.target.value}));
 
-  const saveChanges = () => {
-    setEditMode(false);
-    setTitle(inputTitle.current.value);
-    setText(inputText.current.value);
+  const saveChanges = (id) => props.onSavedCardData(id, cardData);
+
+  const close = (id) => {
+    setCardData((previous) => ({...previous, title: props.title, text: props.text}));
+    props.close(id);
   }
 
-  const close = () => {
-    setEditMode(false);
-    inputTitle.current.value = title;
-    inputText.current.value = text;
-  }
+  const editButtons = () =>
+    <div className="card-buttons">
+      <Button className="card-button" id={props.id} handleButton={close}><FaWindowClose /></Button>
+      <Button className="card-button" id={props.id} handleButton={saveChanges}><FaSave /></Button>
+    </div>
+
+  const viewButtons = () =>
+    <div className="card-buttons">
+      <Button className="card-button" id={props.id} handleButton={props.editModeHandler}><FaPencilAlt /></Button>
+      <Checkbox checked={props.checked} className="card-checkbox" id={props.id} handleCheckbox={props.handleCheckbox} />
+    </div>
 
   return (
     <div className="card">
-      <input type="text" name="title" className={`card-title ${checked ? 'checkbox-active' : ''}`} disabled={!editMode} ref={inputTitle}/>
-      <Button className={`card-button ${editMode ? 'hide' : ''}`} handleButton={editModeHandler}><FaPencilAlt /></Button>
-      <Button className={`card-button ${!editMode ? 'hide' : ''}`} handleButton={close}><FaWindowClose /></Button>
-      <Button className={`card-button ${!editMode ? 'hide' : ''}`} handleButton={saveChanges}><FaSave /></Button>
-      <Checkbox checked={checked} className={`card-checkbox ${editMode ? 'hide' : ''}`} handleCheckbox={() => setChecked(current => !current)} />
+      <Input 
+        type="text"
+        name="title"
+        value={cardData.title}
+        className={`card-title ${props.checked ? 'checkbox-active' : ''}`}
+        disabled={!props.editMode}
+        handleInput={handleInput} />
+      {props.editMode ? editButtons() : viewButtons()}
       <hr/>
-      <div>
-        <input type="text" name="text" className="card-text" disabled={!editMode} ref={inputText}/>
-      </div>
-      
+      <Input 
+        type="text"
+        name="text"
+        value={cardData.text}
+        className="card-text"
+        disabled={!props.editMode}
+        handleInput={handleInput} />
     </div>
   );
 }
